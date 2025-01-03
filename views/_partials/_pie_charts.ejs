@@ -1,0 +1,70 @@
+<script type="text/javascript">
+    google.charts.load("current", { packages: ["corechart"] });
+    google.charts.setOnLoadCallback(drawChart1);
+    google.charts.setOnLoadCallback(drawChart2);
+
+    function drawChart1() {
+        fetch(`<%= baseURL %>/api/number_of_concert_by_city`)
+            .then((response) => response.json())
+            .then((data) => {
+                const chartData = [["Şehir", "Yüzde"]];
+
+                data.number_of_concert_by_city.forEach((item) => {
+                    chartData.push([item.city_name, parseInt(item.number)]);
+                });
+
+                const dataTable =
+                    google.visualization.arrayToDataTable(chartData);
+
+                const options = {
+                    chartArea: {
+                        top: 25,
+                        right: 0,
+                        bottom: 0,
+                        left: 0,
+                    },
+                };
+
+                const chart = new google.visualization.PieChart(
+                    document.getElementById("chart_city")
+                );
+
+                chart.draw(dataTable, options);
+            })
+            .catch((error) => {
+                console.error("API çağrısı sırasında bir hata oluştu:", error);
+            });
+    }
+    function drawChart2() {
+        fetch(`<%= baseURL %>/api/number_of_concert_by_singer`)
+            .then((response) => response.json())
+            .then((data) => {
+                const chartData = [["Sanatçı", "Yüzde"]];
+
+                data.number_of_concert_by_singer.forEach((item) => {
+                    chartData.push([item.singer_nickname, item.number]);
+                });
+
+                const dataTable =
+                    google.visualization.arrayToDataTable(chartData);
+
+                const options = {
+                    chartArea: {
+                        top: 25,
+                        right: 0,
+                        bottom: 0,
+                        left: 0,
+                    },
+                };
+
+                const chart = new google.visualization.PieChart(
+                    document.getElementById("chart_singer")
+                );
+
+                chart.draw(dataTable, options);
+            })
+            .catch((error) => {
+                console.error("API çağrısı sırasında bir hata oluştu:", error);
+            });
+    }
+</script>

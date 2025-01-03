@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- prettier-ignore -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <title><%= title %></title>
+        <link href="../../favicon.ico" rel="icon" />
+        <link
+            rel="stylesheet"
+            href="../../assets/vendors/feather/feather.css"
+        />
+        <link
+            rel="stylesheet"
+            href="../../assets/vendors/ti-icons/css/themify-icons.css"
+        />
+        <link
+            rel="stylesheet"
+            href="../../assets/vendors/css/vendor.bundle.base.css"
+        />
+        <link
+            rel="stylesheet"
+            href="../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css"
+        />
+        <link
+            rel="stylesheet"
+            href="../../assets/vendors/ti-icons/css/themify-icons.css"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="../../assets/js/select.dataTables.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="../../assets/css/vertical-layout-light/style.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css"
+        />
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+        <script
+            type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+            integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+    </head>
+    <body>
+        <div class="container-scroller">
+            <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+                <div
+                    class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
+                >
+                    <a
+                        class="navbar-brand brand-logo ms-5"
+                        href="<%= baseURL %>/"
+                    >
+                        <img
+                            src="../../logo.png"
+                            width="30"
+                            class="mr-2"
+                            alt="logo"
+                        />
+                        <span class="d-none d-lg-inline-block ml-1"
+                            >Konser</span
+                        >
+                    </a>
+                    <a
+                        class="navbar-brand brand-logo-mini"
+                        href="<%= baseURL %>/"
+                        ><img src="../../favicon.ico" alt="logo"
+                    /></a>
+                </div>
+                <div
+                    class="navbar-menu-wrapper d-flex align-items-center justify-content-end"
+                >
+                    <ul class="navbar-nav navbar-nav-right">
+                        <li class="nav-item nav-profile dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                data-toggle="dropdown"
+                                id="profileDropdown"
+                                aria-expanded="true"
+                            >
+                                <img src="../../user.png" alt="profile" />
+                            </a>
+                            <div
+                                class="dropdown-menu dropdown-menu-right navbar-dropdown"
+                                aria-labelledby="profileDropdown"
+                            >
+                                <a
+                                    class="dropdown-item"
+                                    href="<%= baseURL %>/login"
+                                >
+                                    <i class="ti-power-off text-primary"></i>
+                                    Çıkış Yap
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid page-body-wrapper">
+                <div class="main-panel">
+                    <div class="content-wrapper" style="min-height: 100vh">
+                        <div class="row">
+                            <div class="col-lg-4 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1
+                                            class="text-center"
+                                            style="
+                                                font-size: 24px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Konser Bilgisi Güncelle
+                                        </h1>
+
+                                        <!-- prettier-ignore -->
+                                        <form class="forms-sample" action="<%= baseURL %>/concert/update" method="POST">
+                                            <input type="hidden" name="concert_id" value="<%= concert_id %>">
+                                            <div class="form-group">
+                                                <label for="singer">Sanatçı</label>
+                                                <select class="form-control" id="singer" name="singer">
+                                                    <option value="<%= concert[0].singer_id %>"><%= concert[0].singer_nickname %></option>
+                                                    <!-- prettier-ignore -->
+                                                    <% list_singer.forEach(item => { %>
+                                                    <!-- prettier-ignore -->
+                                                    <option value="<%= item.singer_id %>">
+                                                        <%= item.singer_nickname %>
+                                                    </option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="city">Şehir</label>
+                                                <select class="form-control" id="city" name="city">
+                                                    <option value="<%= concert[0].city_id %>"><%= concert[0].city_name %></option>
+                                                    <!-- prettier-ignore -->
+                                                    <% list_city.forEach(item => { %>
+                                                    <!-- prettier-ignore -->
+                                                    <option value="<%= item.city_id %>">
+                                                        <%= item.city_name %>
+                                                    </option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="location">Mekan Bilgisi</label>
+                                                <input type="text" class="form-control" id="location" name="location" value="<%= concert[0].concert_location %>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="concert_date">Konser Tarihi: <strong><%= new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "long", year: "numeric" }).format(new Date(concert[0].concert_date)) %></strong> </label>
+                                                <input type="date" class="form-control" id="concert_date" name="date">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="capacity">Mekan Kapasitesi</label>
+                                                <input type="text" class="form-control" id="capacity" name="capacity" value="<%= concert[0].concert_capacity %>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="price">Bilet Fiyatı</label>
+                                                <input type="text" class="form-control" id="price" name="price" value="<%= concert[0].concert_price %>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sold_ticket">Satılan Bilet</label>
+                                                <input type="text" class="form-control" id="sold_ticket" name="sold_ticket" value="<%= concert[0].concert_sold_ticket %>">
+                                            </div>
+                                            <button type="submit" class="btn btn-success mr-2" style="width: 150px;">Güncelle</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%- include('./_partials/_footer') %>
+                </div>
+            </div>
+        </div>
+        <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+        <script src="../../assets/vendors/chart.js/Chart.min.js"></script>
+        <script src="../../assets/vendors/datatables.net/jquery.dataTables.js"></script>
+        <script src="../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+        <script src="../../assets/js/dataTables.select.min.js"></script>
+        <script src="../../assets/js/off-canvas.js"></script>
+        <script src="../../assets/js/hoverable-collapse.js"></script>
+        <script src="../../assets/js/template.js"></script>
+        <script src="../../assets/js/settings.js"></script>
+        <script src="../../assets/js/todolist.js"></script>
+        <script src="../../assets/js/dashboard.js"></script>
+        <script src="../../assets/js/Chart.roundedBarCharts.js"></script>
+
+        <!-- Bootstrap JS (jQuery ve Popper.js ile birlikte) -->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>

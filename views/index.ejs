@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- prettier-ignore -->
+        <%- include('./_partials/_head'); %>
+        <%- include('./_partials/_cdn_datatables'); %>
+        <%- include('./_partials/_cdn_googlecharts'); %>
+        <%- include('./_partials/_cdn_fontawesome'); %>
+        <%- include('./_partials/_pie_charts'); %>
+        <!-- prettier-ignore -->
+    </head>
+    <body>
+        <div class="container-scroller">
+            <%- include('./_partials/_navbar') %>
+            <div class="container-fluid page-body-wrapper">
+                <div class="main-panel">
+                    <div class="content-wrapper" style="min-height: 100vh">
+                        <div class="row">
+                            <div class="col-lg-12 grid-margin transparent">
+                                <div class="row">
+                                    <div
+                                        class="col-md-3 mb-4 stretch-card transparent"
+                                    >
+                                        <div class="card card-tale">
+                                            <div class="card-body">
+                                                <h1
+                                                    class="mb-4"
+                                                    style="font-size: 18px"
+                                                >
+                                                    Hasılat
+                                                </h1>
+                                                <p
+                                                    class="font-weight-bold fs-30 mb-2"
+                                                >
+                                                    <i
+                                                        class="fa-solid fa-turkish-lira-sign"
+                                                    ></i>
+                                                    <%=
+                                                    Number(revenue[0].number).toLocaleString('tr-TR')
+                                                    %> ₺
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="col-md-3 mb-4 stretch-card transparent"
+                                    >
+                                        <div class="card card-dark-blue">
+                                            <div class="card-body">
+                                                <h1
+                                                    class="mb-4"
+                                                    style="font-size: 18px"
+                                                >
+                                                    Satılan Bilet
+                                                </h1>
+                                                <p
+                                                    class="font-weight-bold fs-30 mb-2"
+                                                >
+                                                    <i
+                                                        class="fa-solid fa-ticket"
+                                                    ></i>
+                                                    <%=
+                                                    Number(tickets[0].number).toLocaleString('tr-TR')
+                                                    %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="col-md-3 mb-4 stretch-card transparent"
+                                    >
+                                        <div class="card card-light-blue">
+                                            <div class="card-body">
+                                                <h1
+                                                    class="mb-4"
+                                                    style="font-size: 18px"
+                                                >
+                                                    Sanatçı
+                                                </h1>
+                                                <p
+                                                    class="font-weight-bold fs-30 mb-2"
+                                                >
+                                                    <i
+                                                        class="fa-solid fa-users"
+                                                    ></i>
+                                                    <%= singers[0].number %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="col-md-3 mb-4 stretch-card transparent"
+                                    >
+                                        <div class="card card-light-danger">
+                                            <div class="card-body">
+                                                <h1
+                                                    class="mb-4"
+                                                    style="font-size: 18px"
+                                                >
+                                                    Konser
+                                                </h1>
+                                                <p
+                                                    class="font-weight-bold fs-30 mb-2"
+                                                >
+                                                    <i
+                                                        class="fa-solid fa-microphone-lines"
+                                                    ></i>
+                                                    <%= concerts[0].number %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1
+                                            class="text-center"
+                                            style="
+                                                font-size: 24px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Konser Oluştur
+                                        </h1>
+
+                                        <!-- prettier-ignore -->
+                                        <form class="forms-sample" action="<%= baseURL %>/concert/create" method="POST">
+                                            <div class="form-group">
+                                                <label for="singer">Sanatçı</label>
+                                                <select class="form-control" id="singer" name="singer">
+                                                    <option value=""></option>
+                                                    <!-- prettier-ignore -->
+                                                    <% list_singer.forEach(item => { %>
+                                                    <!-- prettier-ignore -->
+                                                    <option value="<%= item.singer_id %>">
+                                                        <%= item.singer_nickname %>
+                                                    </option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="city">Şehir</label>
+                                                <select class="form-control" id="city" name="city">
+                                                    <option value=""></option>
+                                                    <!-- prettier-ignore -->
+                                                    <% list_city.forEach(item => { %>
+                                                    <!-- prettier-ignore -->
+                                                    <option value="<%= item.city_id %>">
+                                                        <%= item.city_name %>
+                                                    </option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="location">Mekan Bilgisi</label>
+                                                <input type="text" class="form-control" id="location" name="location">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="date">Konser Tarihi</label>
+                                                <input type="date" class="form-control" id="date" name="date">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="capacity">Mekan Kapasitesi</label>
+                                                <input type="text" class="form-control" id="capacity" name="capacity" placeholder="Örn: 1000">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="price">Bilet Fiyatı</label>
+                                                <input type="text" class="form-control" id="price" name="price" placeholder="Örn: 1000">
+                                            </div>
+                                            <button type="submit" class="btn btn-success mr-2" style="width: 100px;">Ekle</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1
+                                            class="text-center pt-3"
+                                            style="
+                                                font-size: 25px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Şehirlere Göre Konser Dağılımı
+                                        </h1>
+                                        <div
+                                            id="chart_city"
+                                            style="
+                                                min-width: 100%;
+                                                height: 40vh;
+                                            "
+                                        ></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1
+                                            class="text-center pt-3"
+                                            style="
+                                                font-size: 25px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Sanatçılara Göre Konser Dağılımı
+                                        </h1>
+                                        <div
+                                            id="chart_singer"
+                                            style="
+                                                min-width: 100%;
+                                                height: 40vh;
+                                            "
+                                        ></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1
+                                            class="text-center pt-3"
+                                            style="
+                                                font-size: 24px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Konser Hasılat Bilgileri
+                                        </h1>
+                                        <table
+                                            id="table_concerts_revenue"
+                                            class="display rounded"
+                                            style="
+                                                width: 100%;
+                                                background-color: whitesmoke;
+                                            "
+                                        >
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">
+                                                        ID
+                                                    </th>
+                                                    <th>Sanatçı</th>
+                                                    <th>Şehir</th>
+                                                    <th>Mekan</th>
+                                                    <th class="text-center">
+                                                        Tarih
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Bilet Fiyatı
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Kapasite
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Satılan Bilet
+                                                    </th>
+                                                    <th class="text-right">
+                                                        Hedeflenen Kazanç
+                                                    </th>
+                                                    <th class="text-right">
+                                                        Elde Edilen Kazanç
+                                                    </th>
+                                                    <th class="text-right">
+                                                        Zarar Edilen Kazanç
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Güncelle
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Sil
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- prettier-ignore -->
+                                                <% concert_revenues.forEach(item => { %>
+                                                <!-- prettier-ignore -->
+                                                <tr>
+                                                    <td class="text-center"><%= item.concert_id %></td>
+                                                    <td><%= item.singer_nickname %></td>
+                                                    <td><%= item.city_name %></td>
+                                                    <td><%= item.concert_location %></td>
+                                                    <td class="text-center"><%= new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short", year: "numeric" }).format(new Date(item.concert_date)) %></td>
+                                                    <td class="text-center"><%= item.concert_price %> ₺</td>
+                                                    <td class="text-center"><%= item.concert_capacity %></td>
+                                                    <td class="text-center"><%= item.concert_sold_ticket %></td>
+                                                    <td class="text-right text-info"><%= item.target_revenue.toLocaleString('tr-TR') %> ₺</td>
+                                                    <td class="text-right text-success"><%= item.total_revenue.toLocaleString('tr-TR') %> ₺</td>
+                                                    <td class="text-right text-danger"><%= item.cost_revenue.toLocaleString('tr-TR') %> ₺</td>
+                                                    <td class="text-success text-center">
+                                                        <a href="<%= baseURL %>/concert/details/<%= item.concert_id %>" class="btn btn-outline-success py-3">Güncelle</a>
+                                                    </td>
+                                                    <td class="text-danger text-center">
+                                                        <a href="<%= baseURL %>/concert/delete/<%= item.concert_id %>" class="btn btn-outline-danger px-4 py-3">Sil</a>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1
+                                            class="text-center"
+                                            style="
+                                                font-size: 24px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Türe Göre Sanatçılar
+                                        </h1>
+
+                                        <!-- prettier-ignore -->
+                                        <form class="forms-sample d-flex justify-content-center align-items-center" action="<%= baseURL %>/search" method="get">
+                                            <div class="form-group" style="width: 25%; padding-right: 10px;">
+                                                <label for="genre">Tür Seçiniz</label>
+                                                <select class="form-control" id="genre" name="genre">
+                                                    <option value=""></option>
+                                                    <!-- prettier-ignore -->
+                                                    <% list_genre.forEach(item => { %>
+                                                    <!-- prettier-ignore -->
+                                                    <option value="<%= item.genre_id %>">
+                                                        <%= item.genre_name %>
+                                                    </option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="form-group" style="translate: 0px 15px; padding-left: 10px;">
+                                                <button type="submit" class="btn btn-primary mr-2" style="width: 130px;">Sorgula</button>
+                                            </div>
+                                        </form>
+                                        <hr />
+                                        <!-- prettier-ignore -->
+                                        <% if (singers_by_genre && singers_by_genre[0]) { %>
+                                        <div
+                                            class="col-lg-12 grid-margin stretch-card"
+                                        >
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h1
+                                                        class="text-center pt-3"
+                                                        style="
+                                                            font-size: 24px;
+                                                            font-weight: bold;
+                                                        "
+                                                    >
+                                                        <!-- prettier-ignore -->
+                                                        <%= singers_by_genre[0].genre_name %> Türüne Ait Sanatçılar
+                                                    </h1>
+
+                                                    <table
+                                                        id="table_singers_by_genre"
+                                                        class="display rounded"
+                                                        style="
+                                                            width: 100%;
+                                                            background-color: whitesmoke;
+                                                        "
+                                                    >
+                                                        <thead>
+                                                            <tr>
+                                                                <th
+                                                                    class="text-center"
+                                                                >
+                                                                    ID
+                                                                </th>
+                                                                <th>Sanatçı</th>
+                                                                <th>
+                                                                    Cinsiyet
+                                                                </th>
+                                                                <th>Tür</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- prettier-ignore -->
+                                                            <% singers_by_genre.forEach(item => { %>
+                                                            <!-- prettier-ignore -->
+                                                            <tr>
+                                                                        <td class="text-center"><%= item.singer_id %></td>
+                                                                        <td><%= item.singer_nickname %></td>
+                                                                        <td><%= item.gender_name %></td>
+                                                                        <td><%= item.genre_name %></td>
+                                                                    </tr>
+                                                            <% }) %>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- prettier-ignore -->
+                                        <% } else if (singers_by_genre && singers_by_genre[0]==null) { %>
+                                        <h1
+                                            class="text-center text-danger font-italic"
+                                            style="
+                                                font-size: 24px;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Herhangi bir sanatçı bulunamadı!
+                                        </h1>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%- include('./_partials/_footer') %>
+                </div>
+            </div>
+        </div>
+        <%- include('./_partials/_scripts') %>
+        <script>
+            new DataTable("#table_concerts_revenue", {
+                paging: false,
+                scrollCollapse: true,
+                scrollY: "75vh",
+                order: [[0, "desc"]],
+            });
+            new DataTable("#table_singers_by_genre", {
+                paging: false,
+                scrollCollapse: true,
+                scrollY: "75vh",
+                order: [[0, "desc"]],
+                searching: false,
+                paging: false,
+                info: false,
+            });
+        </script>
+    </body>
+</html>
