@@ -26,7 +26,7 @@ app.get("/", async (req, res) => {
     const concert_revenues = await Concert.revenues();
 
     res.render("index", {
-        title: "Ana Sayfa | Konser KDS",
+        title: "Ana Sayfa | Konser",
 
         revenue: revenue[0],
         tickets: tickets[0],
@@ -43,7 +43,7 @@ app.get("/", async (req, res) => {
 
 app.get("/login", async (req, res) => {
     res.render("login", {
-        title: "Yönetici Giriş | Konser KDS",
+        title: "Yönetici Giriş | Konser",
     });
 });
 
@@ -78,7 +78,7 @@ app.get("/concert/details/:id", async (req, res) => {
     const list_city = await City.getall();
 
     res.render("details", {
-        title: "Konser Güncelleme Sayfası | Konser KDS",
+        title: "Konser Güncelleme Sayfası | Konser",
 
         concert: concert[0],
         list_singer: list_singer[0],
@@ -135,7 +135,7 @@ app.get("/search", async (req, res) => {
     const concert_revenues = await Concert.revenues();
     // return console.log(singers_by_genre[0]);
     res.render("index", {
-        title: "Ana Sayfa | Konser KDS",
+        title: "Ana Sayfa | Konser",
 
         revenue: revenue[0],
         tickets: tickets[0],
